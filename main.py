@@ -223,5 +223,5 @@ def ise_alim_sonuc():
         return render_template('ise-alim.html',sonuc_olumsuz="İşe Alım Simülasyonunu Maalesef Geçemediniz.",sonuc_basari="")
 
 #-----------------------------İŞE ALIM----------------------------#
-#if __name__=='__main__':
-#	app.run(debug=True,port=5002)
+if __name__=='__main__':
+	app.run(debug=True,port=5002)
