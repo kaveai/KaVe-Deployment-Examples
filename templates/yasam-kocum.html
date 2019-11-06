@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins:css -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <meta name="title" content="Twitter Breaker">
+    <meta name="description" content="TwitterBreaker sizin şu ana kadar attığınız tweetleri farklı makine öğrenmesi metodlarıyla analiz eder ve bu analizleri sizinle anlık olarak paylaşır.">
+    <meta name="keywords" content="makine öğrenmesi, twitter analizi, twitter analysis, twitter analyser, twitter data, data analysis, data, twitter analizi, twitter, twitter scraper, twitter scrape">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta name="language" content="Turkish">
+    <meta name="author" content="Ka|Ve">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/ionicons/css/ionicons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/typicons/src/font/typicons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.addons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fontawesome-free/css/all.min.css') }}"  type="text/css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/shared/style.css') }}">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/demo_1/style.css') }}">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
+    <style>
+      body {
+        font-family: monospace;
+        background:#ffffff;
+      }
+      h1 {
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      #chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #userInput {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #textInput {
+        width: 85%;
+        border: 1px solid #ced4da;
+        text-align: center;
+        font-family: monospace;
+        border-radius:.65rem;
+        font-size: 17px;   
+      }
+      .userText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: right;
+        line-height: 30px;
+      }
+      .userText span {
+        background-color: #c3d600;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: black;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #cce5ff;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 78%;
+        margin-top: 60px;
+        border: 1px #29385e;
+      }
+      .box {
+        border: 2px solid black;
+      }
+      
+    </style>
+  </head>
+  <title>KaVe Deployment</title>
+  <body class="banner">
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+          <a class="navbar-brand brand-logo" href="/">
+          <img src="{{ url_for('static', filename='assets/images/devre.png') }}" alt="logo" style="margin-top: 25px;"/> </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+          <form class="ml-auto d-flex align-items-center" action="/search-twitter-profile" method="post">
+            <div class="input-group">
+          </form>
+        </div>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item" style="margin-top:50px;">
+              <a class="nav-link" href="/yasam-kocum-base">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Yaşam Koçum</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ise-alim">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">İşe Alım Örneği</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/zingat-fiyatlama">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Zingat M2 Fiyatı Tahminleme</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ev-kredisi">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Ev Kredisi Hesapla</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Page Title Header Starts-->
+            <center>
+              <h1 style="color:#103b70;">
+                Yaşam Koçum
+              </h1>
+            </center>
+            <h3>
+            </h3>
+            <center>
+            <div class="boxed">
+              <div>
+                <div id="chatbox">
+                  <p class="botText">
+                    <span>Hoşgeldin {{user_nick}},Bugün Sana Nasıl Yardımcı Olabilirim?</span>
+                  </p>
+                </div>
+                </center>
+                <div id="userInput">
+                  <input id="textInput" type="text" name="user_input" placeholder="Koçuna Soru Sor"/>
+                  <input type="hidden" id="user_nick" value= {{user_nick}}>
+                  <button type="submit" id="clickMe"  value="clickme" class="btn btn-primary" style="border-radius: .65rem; line-height: 1.2; font-size:monospace;">Send</button>
+                </div>
+              </div>
+             </center>
+            </div>
+            <!-- Page Title Header Ends-->
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='assets/js/shared/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/shared/misc.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="{{ url_for('static', filename='assets/js/demo_1/dashboard.js') }}"></script>
+    <!-- End custom js for this page-->
+    <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userText = $("#user_nick").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/process", {user_nick: userText, user_input: rawText},).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+      <script>
+        $(document).ready(function(){
+            $('#clickMe').click(function(){
+            getBotResponse();
+            });
+        });
+    </script>
+  </body>
+</html>

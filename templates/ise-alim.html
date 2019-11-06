@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins:css -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <meta name="title" content="Twitter Breaker">
+    <meta name="description" content="TwitterBreaker sizin şu ana kadar attığınız tweetleri farklı makine öğrenmesi metodlarıyla analiz eder ve bu analizleri sizinle anlık olarak paylaşır.">
+    <meta name="keywords" content="makine öğrenmesi, twitter analizi, twitter analysis, twitter analyser, twitter data, data analysis, data, twitter analizi, twitter, twitter scraper, twitter scrape">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta name="language" content="Turkish">
+    <meta name="author" content="Ka|Ve">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/ionicons/css/ionicons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/typicons/src/font/typicons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.addons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fontawesome-free/css/all.min.css') }}"  type="text/css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/shared/style.css') }}">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/demo_1/style.css') }}">
+    <!-- End Layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
+    <style>
+        body, html {
+          height: 100%;
+          font-family: monospace;
+          background:#ffffff;
+        }
+        h1 {
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+        }
+        .bg { 
+          /* The image used */
+          background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");
+
+          /* Full height */
+          height: 100%; 
+
+          /* Center and scale the image nicely */
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+    </style>
+  </head>
+  <title>KaVe Deployment</title>
+  <body class="banner">
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+          <a class="navbar-brand brand-logo" href="/">
+          <img src="{{ url_for('static', filename='assets/images/devre.png') }}" alt="logo" style="margin-top: 25px;"/> </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+          <form class="ml-auto d-flex align-items-center" action="/search-twitter-profile" method="post">
+            <div class="input-group">
+          </form>
+        </div>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item" style="margin-top:50px;">
+              <a class="nav-link" href="/yasam-kocum-base">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Yaşam Koçum</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ise-alim">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">İşe Alım Örneği</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/zingat-fiyatlama">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Zingat M2 Fiyatı Tahminleme</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ev-kredisi">
+                <i class="menu-icon typcn typcn-document-text"></i>
+                <span class="menu-title"">Ev Kredisi Hesapla</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+
+            <center><h1 style="color:#103b70;">İşe Alım Simülasyonu</h1><center>
+            <center><br style="color:#103b70;">İşe Alım Simülasyonuna Hoşgeldin, Aşağıdaki soruları cevaplayarak hayalindeki işe girip giremeyeceğin hakkında ön bilgi alabilirsin.</br><center>
+
+
+            {% if sonuc_basari != "" %}
+                <div class="alert alert-success" role="alert">
+                    {{sonuc_basari}}
+                </div>
+            {% else %}
+            {% endif %}
+
+            {% if sonuc_olumsuz != "" %}
+                <div class="alert alert-danger" role="alert">
+                    {{sonuc_olumsuz}}
+                </div>
+            {% else %}
+            {% endif %}
+
+            <form action="/is-sonuc" method="POST">
+              <div class="form-group">
+                <input style="width:20%; margin-top:20px;" type="text" class="form-control" name="social" placeholder="Sosyal Dereceniz (1-5)">
+              </div>
+
+              <div class="form-group">
+                <input style="width:20%; margin-top:20px;" type="text" class="form-control" name="algorithm" placeholder="Algoritma Bilgin (1-5)">
+              </div>
+
+
+              <div class="form-group">
+                <input style="width:20%; margin-top:20px;" type="text" class="form-control" name="gpa" placeholder="Üniversite Mezuniyet Ortalaman(GPA)">
+              </div>
+
+
+              <div class="form-group">
+                <input style="width:20%; margin-top:20px;" type="text" class="form-control" name="age" placeholder="Yaşınız">
+              </div>
+
+
+              <div class="form-group">
+              </div>
+              <button type="submit" class="btn btn-primary">Hesapla</button>
+            </form>
+          </div>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{{ url_for('static', filename='assets/js/shared/off-canvas.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/shared/misc.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="{{ url_for('static', filename='assets/js/demo_1/dashboard.js') }}"></script>
+    <!-- End custom js for this page-->
+  </body>
+</html>
