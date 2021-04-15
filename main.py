@@ -224,4 +224,4 @@ def ise_alim_sonuc():
 
 #-----------------------------İŞE ALIM----------------------------#
 if __name__=='__main__':
-	app.run(debug=True,port=5002)
+	app.run(debug=False,port=85)
